@@ -1,0 +1,9 @@
+.shadow-error { 
+    border-color:#FF0000;
+    box-shadow:0 0 5px #FF0000;
+}
+
+.shadow-success { 
+    border-color:#28A745;
+    box-shadow:0 0 5px #28A745;
+}
