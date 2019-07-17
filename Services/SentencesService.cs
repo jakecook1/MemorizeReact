@@ -31,5 +31,11 @@ namespace MemorizeReact.Services
             return (from line in lines
                     select new Sentence { Text = line }).ToList();
         }
+
+        public IEnumerable<Sentence> Create(IEnumerable<Sentence> sentences)
+        {
+            File.WriteAllLines(_fileName, sentences.Select(x => x.Text));
+            return sentences;
+        }
     }
 }

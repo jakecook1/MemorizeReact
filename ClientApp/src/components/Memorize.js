@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import request from 'superagent';
 import SentencesList from './Common/SentencesList';
 
 class Memorize extends Component {
@@ -6,11 +7,11 @@ class Memorize extends Component {
         super(props);
 
         this.state = { sentences: [], loading: true };
-        
-        fetch('api/Sentences')
-            .then(response => response.json())
-            .then(data => {
-                this.setState({ sentences: data, loading: false });
+
+        request.get('api/Sentences').then(res => {
+            this.setState({ sentences: res.body, loading: false });
+        }).catch(err => {
+            this.setState({ errors: err });
         });
     }
 

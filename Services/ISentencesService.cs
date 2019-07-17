@@ -6,5 +6,7 @@ namespace MemorizeReact.Services
     public interface ISentencesService
     {
         IEnumerable<Sentence> Get();
+
+        IEnumerable<Sentence> Create(IEnumerable<Sentence> sentences);
     }
 }
