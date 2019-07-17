@@ -7,7 +7,7 @@ class Memorize extends Component {
 
         this.state = { sentences: [], loading: true };
         
-        fetch('api/Home/Sentences')
+        fetch('api/Sentences')
             .then(response => response.json())
             .then(data => {
                 this.setState({ sentences: data, loading: false });

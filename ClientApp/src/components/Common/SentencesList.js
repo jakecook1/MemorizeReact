@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
-import { Container, ListGroup } from 'reactstrap';
+import { Container, ListGroup, ListGroupItem } from 'reactstrap';
 import Sentences from './Sentences';
 
 class SentencesList extends Component {
 
     static renderSentences(sentences) {
+        if (sentences.length === 0) {
+            return (
+                <Container>
+                    <ListGroup>
+                        <ListGroupItem>
+                            Please enter a sentence to memorize.
+                        </ListGroupItem>
+                    </ListGroup>
+                </Container>
+            );
+        };
+
         return (
            <Container>
                <ListGroup>

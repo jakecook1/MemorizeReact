@@ -14,7 +14,7 @@ class Sentences extends Component {
             { field: 'value', method: this.matches, validWhen: true, message: 'Not correct.' }
         ]);
 
-        const splitSentence = SplitSentence(this.props.sentence);
+        const splitSentence = SplitSentence(this.props.sentence.text);
 
         this.state = {
             value: '',
@@ -40,7 +40,7 @@ class Sentences extends Component {
     render() {
         const { sentence } = this.props;
 
-        const splitSentence = SplitSentence(sentence);
+        const splitSentence = SplitSentence(sentence.text);
 
         let validation = this.state.validation;
 

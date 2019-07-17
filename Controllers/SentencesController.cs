@@ -1,21 +1,22 @@
 using System.Collections.Generic;
+using MemorizeReact.Models;
 using MemorizeReact.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MemorizeReact.Controllers
 {
     [Route("api/[controller]")]
-    public class HomeController : Controller
+    public class SentencesController : ControllerBase
     {
         private ISentencesService _sentencesService;
 
-        public HomeController(ISentencesService sentencesService)
+        public SentencesController(ISentencesService sentencesService)
         {
             _sentencesService = sentencesService;
         }
 
-        [HttpGet("[action]")]
-        public IEnumerable<string> Sentences()
+        [HttpGet]
+        public IEnumerable<Sentence> Get()
         {
             return _sentencesService.Get();
         }
