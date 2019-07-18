@@ -15,6 +15,20 @@ class SentenceEdit extends Component {
         this.state = {
             value: 'Some day im gonna smack your face'
         };
+
+        request.get('api/Sentences').then(res => {
+            var value = '';
+            for (var i = 0; i < res.body.length; i++) {
+                if (value != '')
+                    value += '\n';
+
+                value += res.body[i].text;
+            }
+            
+            this.setState({ value: value, loading: false });
+        }).catch(err => {
+            this.setState({ errors: err });
+        });
     }
 
     handleChange(e) {

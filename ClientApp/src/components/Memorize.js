@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Jumbotron, Container } from 'reactstrap';
 import request from 'superagent';
 import SentencesList from './Common/SentencesList';
 
@@ -21,10 +22,17 @@ class Memorize extends Component {
             : <SentencesList sentences={this.state.sentences} />;
 
         return (
-            <div>
-                <h1>Memorize</h1>
-                {contents}
-            </div>
+            <Container className="p-0" fluid>
+                <Jumbotron className="shadow bg-dark" fluid>
+                    <Container className="text-white">
+                        <h1>Memorize</h1>
+                        <p>Fill in the stuff!</p>
+                    </Container>
+                </Jumbotron>
+                <Container className="p-3">
+                    {contents}
+                </Container>
+            </Container>
         );
     }
 }
