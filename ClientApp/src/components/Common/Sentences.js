@@ -41,47 +41,64 @@ class Sentences extends Component {
         });
     }
 
+    renderControls(state, splitSentence, handleChange) {
+        var { firstPart, secondPart } = splitSentence;
+        if (state.randomNum > 0) {
+            return (
+                <Row>
+                    <Col>
+                        {this.getSpanControl(firstPart)}
+                    </Col>
+                    <Col>
+                        {this.getTextControl(state, secondPart, handleChange)}
+                    </Col>
+                </Row>
+            );
+        } else {
+            return (
+                <Row>
+                    <Col>
+                        {this.getTextControl(state, firstPart, handleChange)}
+                    </Col>
+                    <Col>
+                        {this.getSpanControl(secondPart)}
+                    </Col>
+                </Row>
+            );
+        }
+    }
+
+    getSpanControl(part) {
+        return (
+            <span>{part}</span>
+        );
+    }
+
+    getTextControl(state, part, handleChange) {
+        return (
+            <Container>
+                <SentenceTextControl
+                    part={part}
+                    type={"text"}
+                    field={"value"}
+                    value={state.value}
+                    placeholder={"Enter the rest..."}
+                    valid={state.validation.value.isInvalid}
+                    message={state.validation.value.message}
+                    onChange={handleChange} />
+            </Container>
+        );
+    }
+
     render() {
         const { sentence } = this.props;
-
         const splitSentence = SplitSentence(sentence.text);
-
-        let validation = this.state.validation;
 
         if (sentence) {
             return (
                 <ListGroupItem>
                     <Container>
-                        <Row>
-                            <Col>
-                                {
-                                    this.state.randomNum > 0
-                                        ? <span>{splitSentence.firstPart}</span>
-                                        : <SentenceTextControl
-                                                type={"text"}
-                                                field={"value"}
-                                                value={this.state.value}
-                                                placeholder={"Enter the rest..."}
-                                                valid={validation.value.isInvalid}
-                                                message={validation.value.message}
-                                                onChange={this.handleChange} />
-                                }
-                            </Col>
-                            <Col>
-                                {
-                                    this.state.randomNum > 0
-                                        ? <SentenceTextControl
-                                                type={"text"}
-                                                field={"value"}
-                                                value={this.state.value}
-                                                placeholder={"Enter the rest..."}
-                                                valid={validation.value.isInvalid}
-                                                message={validation.value.message}
-                                                onChange={this.handleChange} />
-                                        : <span>{splitSentence.secondPart}</span>
-                                }
-                            </Col>
-                        </Row>
+                        {this.renderControls(this.state, splitSentence, this.handleChange)}
                     </Container>
                 </ListGroupItem>
             );

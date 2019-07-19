@@ -19,7 +19,7 @@ class SentenceEdit extends Component {
         request.get('api/Sentences').then(res => {
             var value = '';
             for (var i = 0; i < res.body.length; i++) {
-                if (value != '')
+                if (value !== '')
                     value += '\n';
 
                 value += res.body[i].text;
