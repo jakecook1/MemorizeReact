@@ -13,7 +13,7 @@ class SentenceEdit extends Component {
         this.handleClick = this.handleClick.bind(this);
 
         this.state = {
-            value: 'Some day im gonna smack your face'
+            value: ''
         };
 
         request.get('api/Sentences').then(res => {
