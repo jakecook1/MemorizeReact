@@ -12,7 +12,7 @@ namespace MemorizeReact.Services
 
         public SentencesService() {
             // TODO: this could be passed in by the user
-            _fileName = @"./Data/Sentences.data";
+            _fileName = @"./Sentences.data";
         }
 
         public IEnumerable<Sentence> Get()
