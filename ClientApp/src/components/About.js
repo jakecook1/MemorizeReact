@@ -1,14 +1,21 @@
 import React, { Component } from 'react';
+import { Container, Jumbotron } from 'reactstrap';
 
 class About extends Component {
 
     render() {
 
         return (
-            <div>
-                <h1>About</h1>
-                <p>Simple program to help you remember information.</p>
-            </div>
+            <Container className="p-0" fluid>
+                <Jumbotron className="shadow bg-dark" fluid>
+                    <Container className="text-white">
+                        <h1>About</h1>
+                    </Container>
+                </Jumbotron>
+                <Container>
+                    <p>Simple program to help you remember information.</p>
+                </Container>
+            </Container>
         );
     }
 }
