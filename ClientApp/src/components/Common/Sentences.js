@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { SplitSentence } from '../../helpers/StringExtensions';
+import { RandomIntFromInterval } from '../../helpers/IntExtensions';
 import FormValidator from '../../helpers/FormValidator';
 import SentenceTextControl from './SentenceTextControl';
 import { ListGroupItem, Container, Row, Col } from 'reactstrap';
@@ -18,15 +19,25 @@ class Sentences extends Component {
         
         this.state = {
             value: '',
-            randomNum: Math.round(Math.random()),
+            randomNum: RandomIntFromInterval(0, 2),
             splitSentence: splitSentence,
             validation: this.validator.valid()
         };
     }
 
-    matches = (value, state) => (state.randomNum > 0
-                                    ? state.splitSentence.secondPart.toLowerCase() === value.toLowerCase()
-                                    : state.splitSentence.firstPart.toLowerCase() === value.toLowerCase())
+    matches = (value, state) => { 
+        switch (state.randomNum)
+        {
+            case 0:
+                return state.splitSentence.firstPart.toLowerCase() === value.toLowerCase();
+            case 1:
+                return state.splitSentence.secondPart.toLowerCase() === value.toLowerCase();
+            case 2:
+                return null;
+            default:
+                return null;
+        }
+    }
 
     handleChange(event) {
         const validation = this.validator.validate({
@@ -41,30 +52,46 @@ class Sentences extends Component {
         });
     }
 
-    renderControls(state, splitSentence, handleChange) {
+    renderSplitSentence(firstPart, secondPart) {
+        return (
+            <Row>
+                <Col>
+                    {firstPart}
+                </Col>
+                <Col>
+                    {secondPart}
+                </Col>
+            </Row>
+        );
+    }
+
+    renderBitsSentence(sentence) {
+        return (
+            <Row>
+                <Col>
+                    {this.getSpanControl(sentence)}
+                </Col>
+            </Row>
+        );
+    }
+
+    renderControls(state, sentence, handleChange) {
+        const splitSentence = SplitSentence(sentence.text);
         var { firstPart, secondPart } = splitSentence;
-        if (state.randomNum > 0) {
-            return (
-                <Row>
-                    <Col>
-                        {this.getSpanControl(firstPart)}
-                    </Col>
-                    <Col>
-                        {this.getTextControl(state, secondPart, handleChange)}
-                    </Col>
-                </Row>
-            );
-        } else {
-            return (
-                <Row>
-                    <Col>
-                        {this.getTextControl(state, firstPart, handleChange)}
-                    </Col>
-                    <Col>
-                        {this.getSpanControl(secondPart)}
-                    </Col>
-                </Row>
-            );
+
+        switch (state.randomNum) {
+            case 0:
+                return this.renderSplitSentence(
+                            this.getTextControl(state, firstPart, handleChange),
+                            this.getSpanControl(secondPart));
+            case 1:
+                return this.renderSplitSentence(
+                            this.getSpanControl(firstPart),
+                            this.getTextControl(state, secondPart, handleChange));
+            case 2:
+                return this.renderBitsSentence(sentence.text);
+            default:
+                return null;
         }
     }
 
@@ -92,13 +119,12 @@ class Sentences extends Component {
 
     render() {
         const { sentence } = this.props;
-        const splitSentence = SplitSentence(sentence.text);
 
         if (sentence) {
             return (
                 <ListGroupItem>
                     <Container>
-                        {this.renderControls(this.state, splitSentence, this.handleChange)}
+                        {this.renderControls(this.state, sentence, this.handleChange)}
                     </Container>
                 </ListGroupItem>
             );
