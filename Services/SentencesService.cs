@@ -9,14 +9,16 @@ namespace MemorizeReact.Services
     public class SentencesService : ISentencesService
     {
         private string _fileName;
+        private string _dirName;
 
-        public SentencesService() {
-            // TODO: this could be passed in by the user
-            _fileName = @"./Sentences.data";
-        }
-
-        public IEnumerable<Sentence> Get()
+        public SentencesService()
         {
+            // TODO: this could be passed in by the user
+            _dirName = @"./Data";
+            _fileName = @"./Data/Sentences.data";
+
+            Directory.CreateDirectory(_dirName);
+
             // Check if file exists if not create it.
             if (!File.Exists(_fileName))
             {
@@ -25,7 +27,10 @@ namespace MemorizeReact.Services
                     Console.WriteLine("File {0} created.", _fileName);
                 }
             }
+        }
 
+        public IEnumerable<Sentence> Get()
+        {
             var lines = File.ReadAllLines(_fileName);
 
             return (from line in lines
