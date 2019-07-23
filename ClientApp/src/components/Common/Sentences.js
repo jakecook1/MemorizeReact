@@ -3,6 +3,7 @@ import { SplitSentence } from '../../helpers/StringExtensions';
 import { RandomIntFromInterval } from '../../helpers/IntExtensions';
 import FormValidator from '../../helpers/FormValidator';
 import SentenceTextControl from './SentenceTextControl';
+import SentenceBits from './SentenceBits';
 import { ListGroupItem, Container, Row, Col } from 'reactstrap';
 
 class Sentences extends Component {
@@ -69,7 +70,7 @@ class Sentences extends Component {
         return (
             <Row>
                 <Col>
-                    {this.getSpanControl(sentence)}
+                    <SentenceBits sentence={sentence} />
                 </Col>
             </Row>
         );

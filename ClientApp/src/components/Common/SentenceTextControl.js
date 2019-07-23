@@ -67,7 +67,9 @@ class SentenceTextControl extends Component {
                     value={this.props.value}
                     className={inputClass}
                     placeholder={this.props.placeholder}
-                    onChange={this.props.onChange} />
+                    onChange={this.props.onChange}
+                    autoComplete="off"
+                    style={this.props.style} />
                 <small id="emailError" className={messageClass}>
                     {this.getMessage(this.props.valid, this.props.value)}
                 </small>
